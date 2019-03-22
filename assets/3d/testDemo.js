@@ -3,41 +3,59 @@
 // https://hdrihaven.com/
 var MAX_TIME_STEP = 0.01;
 
+// Simulation
+var bouncesim;
 
-
-// get the main window
-var canvas;
-var renderer;
+// Simulation visualization
+var simCanvas;
 var simScene;
+var simRenderer;
+
+// Energy visualization
+var visCanvas;
+var visScene;
+var visRenderer;
 
 init();
 animate();
 
 function init() {
-    canvas = document.getElementById("simulation");
+    // get the canvases
+    simCanvas = document.getElementById("simulation");
+    visCanvas = document.getElementById("energy");
 
-    renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
-    renderer.setSize( canvas.innerWidth, canvas.innerHeight );
-    renderer.domElement = canvas;
-    // document.body.appendChild( renderer.domElement );
-
-    // create scene
+    // create scenes
     simScene = new THREE.Scene();
     simScene.background = new THREE.Color().setRGB(0.5, 0.1, 0.2);
 
+    visScene = new THREE.Scene();
+    visScene.background = new THREE.Color().setRGB(0.7, 0.7, 0.7);
+
+    simRenderer = new THREE.WebGLRenderer({canvas: simCanvas, antialias: true});
+    setupRenderer(simCanvas, simScene, simRenderer);
+
+    visRenderer = new THREE.WebGLRenderer({canvas: visCanvas, antialias: true});
+    setupRenderer(visCanvas, visScene, visRenderer);
+
     // create the simulation
-    var bouncesim = new BouncerSim();
-    bouncesim.initializeScene(simScene);
-    simScene.userData.sim = bouncesim;
+    bouncesim = new BouncerSim();
+    bouncesim.initializeSimulationScene(simScene);
+    bouncesim.initializeEnergyScene(visScene);
+}
+
+function setupRenderer(canvas, scene, renderer) {
+    renderer.setSize( canvas.innerWidth, canvas.innerHeight );
+    renderer.domElement = canvas;
+    // document.body.appendChild( renderer.domElement );
 
     // var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
     var camera = new THREE.PerspectiveCamera( 50, 1, 0.1, 1000 );
     camera.position.z = 8;
     camera.position.y = 3;
-    simScene.userData.camera = camera;
+    scene.userData.camera = camera;
 
     var controls = new THREE.OrbitControls( camera );
-    simScene.userData.controls = controls;
+    scene.userData.controls = controls;
 }
 
 var currentstamp = null;
@@ -51,16 +69,23 @@ function animate(timestamp) {
     currentstamp = timestamp;
 
     if (!isNaN(timeStep)) {
-        simScene.userData.sim.takeTimeStep(timeStep);
+        bouncesim.takeTimeStep(timeStep);
     }
 
-		renderer.render( simScene, simScene.userData.camera );
+		simRenderer.render( simScene, simScene.userData.camera );
+    visRenderer.render( visScene, visScene.userData.camera );
 };
 
 function updateSize() {
-		var width = canvas.clientWidth;
-		var height = canvas.clientHeight;
-		if ( canvas.width !== width || canvas.height !== height ) {
-				renderer.setSize( width, height, false );
+		var width = simCanvas.clientWidth;
+		var height = simCanvas.clientHeight;
+		if ( simCanvas.width !== width || simCanvas.height !== height ) {
+				simRenderer.setSize( width, height, false );
+		}
+
+		width = simCanvas.clientWidth;
+		height = simCanvas.clientHeight;
+		if ( visCanvas.width !== width || visCanvas.height !== height ) {
+				visRenderer.setSize( width, height, false );
 		}
 }

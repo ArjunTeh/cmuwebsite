@@ -38,7 +38,7 @@ class BouncerSim{
         }
     }
 
-    initializeScene(scene) {
+    initializeSimulationScene(scene) {
         // add lights
         scene.add( new THREE.AmbientLight( 0x222222 ) );
         var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -73,6 +73,27 @@ class BouncerSim{
         floor.rotateX(THREE.Math.degToRad(-90.0));
         scene.add( floor );
 
+    }
+
+    initializeEnergyScene(scene) {
+        // add lights
+        scene.add( new THREE.AmbientLight( 0x222222 ) );
+        scene.add( new THREE.AmbientLight( 0x772266 ) );
+        var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.set( 1, 1, 1 ).normalize();
+        scene.add( directionalLight );
+
+        var geometry = new THREE.ConeGeometry(2, 4, 32);
+        var diffuseColor = new THREE.Color().setRGB(0.8, 0.8, 0.2);
+        var material = new THREE.MeshStandardMaterial({
+		        color: diffuseColor,
+		        metalness: 0.2,
+		        roughness: 0.7,
+            envMap: null
+        });
+        this.vis = new THREE.Mesh( geometry, material );
+        this.vis.position.y += 2;
+        scene.add( this.vis );
     }
 
 }
