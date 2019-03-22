@@ -3,47 +3,64 @@
 // https://hdrihaven.com/
 var MAX_TIME_STEP = 0.01;
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-scene.background = new THREE.Color().setRGB(0.5, 0.1, 0.2);
 
 // get the main window
-var section = document.getElementId("simulation");
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+var canvas;
+var renderer;
+var simScene;
 
-var imgTexture = new THREE.TextureLoader().load( "assets/3d/textures/moon_1024.jpg",
-                                                 function(){},
-                                                 function(){},
-                                                 function(){console.log("bad texture");});
-imgTexture.wrapS = imgTexture.wrapT = THREE.RepeatWrapping;
-imgTexture.anisotropy = 16;
+init();
+animate();
 
-camera.position.z = 5;
-camera.position.y = 1;
+function init() {
+    canvas = document.getElementById("simulation");
 
-var controls = new THREE.OrbitControls( camera );
+    renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
+    renderer.setSize( canvas.innerWidth, canvas.innerHeight );
+    renderer.domElement = canvas;
+    // document.body.appendChild( renderer.domElement );
 
-// create the simulation
-var sim = new BouncerSim();
-sim.initializeScene();
+    // create scene
+    simScene = new THREE.Scene();
+    simScene.background = new THREE.Color().setRGB(0.5, 0.1, 0.2);
+
+    // create the simulation
+    var bouncesim = new BouncerSim();
+    bouncesim.initializeScene(simScene);
+    simScene.userData.sim = bouncesim;
+
+    // var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var camera = new THREE.PerspectiveCamera( 50, 1, 0.1, 1000 );
+    camera.position.z = 8;
+    camera.position.y = 3;
+    simScene.userData.camera = camera;
+
+    var controls = new THREE.OrbitControls( camera );
+    simScene.userData.controls = controls;
+}
 
 var currentstamp = null;
 // Start the animation!
-var animate = function (timestamp) {
+function animate(timestamp) {
     // Setup animation handle from website
 		requestAnimationFrame( animate );
+    updateSize();
 
     var timeStep = Math.min(timestamp - currentstamp, MAX_TIME_STEP);
     currentstamp = timestamp;
 
     if (!isNaN(timeStep)) {
-        sim.takeTimeStep(timeStep);
+        simScene.userData.sim.takeTimeStep(timeStep);
     }
 
-		renderer.render( scene, camera );
+		renderer.render( simScene, simScene.userData.camera );
 };
 
-animate();
+function updateSize() {
+		var width = canvas.clientWidth;
+		var height = canvas.clientHeight;
+		if ( canvas.width !== width || canvas.height !== height ) {
+				renderer.setSize( width, height, false );
+		}
+}

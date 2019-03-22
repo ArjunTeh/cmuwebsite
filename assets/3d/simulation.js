@@ -38,7 +38,7 @@ class BouncerSim{
         }
     }
 
-    initializeScene() {
+    initializeScene(scene) {
         // add lights
         scene.add( new THREE.AmbientLight( 0x222222 ) );
         var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
