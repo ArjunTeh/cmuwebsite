@@ -16,6 +16,9 @@ var visCanvas;
 var visScene;
 var visRenderer;
 
+// Plot Canvas
+var plotCanvas;
+
 init();
 animate();
 
@@ -23,6 +26,7 @@ function init() {
     // get the canvases
     simCanvas = document.getElementById("simulation");
     visCanvas = document.getElementById("energy");
+    plotCanvas = document.getElementById("plot");
 
     // create scenes
     simScene = new THREE.Scene();
@@ -41,6 +45,7 @@ function init() {
     bouncesim = new BouncerSim();
     bouncesim.initializeSimulationScene(simScene);
     bouncesim.initializeEnergyScene(visScene);
+    bouncesim.initializePlot(plotCanvas);
 }
 
 function setupRenderer(canvas, scene, renderer) {
@@ -54,7 +59,7 @@ function setupRenderer(canvas, scene, renderer) {
     camera.position.y = 3;
     scene.userData.camera = camera;
 
-    var controls = new THREE.OrbitControls( camera );
+    var controls = new THREE.OrbitControls( camera, canvas );
     scene.userData.controls = controls;
 }
 

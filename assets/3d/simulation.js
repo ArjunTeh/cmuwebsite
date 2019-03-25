@@ -13,7 +13,7 @@ class BouncerSim{
     }
 
     get velocity() {
-        return this.ball_vel;
+        return this.ball_vel.y;
     }
 
     get energy() {
@@ -29,12 +29,31 @@ class BouncerSim{
         this.ball.translateY(timestep*this.ball_vel.y);
 
         this.resolveCollisions();
+        this.drawPhase();
     }
 
     resolveCollisions() {
         if (this.ball.position.y < 0.5) {
             this.ball_vel.y = -this.ball_vel.y;
             this.ball.position.y += 2*(0.5-this.ball.position.y);
+        }
+    }
+
+    drawPhase() {
+        if (this.ctx) {
+            this.ctx.fillStyle = 'rgb(220,220,220)';
+            this.ctx.fillRect(0, 0, this.plot.width, this.plot.height);
+
+            // get the xy coordinates
+            var x = 10*this.position;
+            var y = 10*this.velocity;
+            y = y + this.plot.height/2;
+
+            this.ctx.beginPath();
+            this.ctx.fillStyle = 'red';
+            this.ctx.arc(x, y, 5, 0, 2*Math.PI, true);
+            this.ctx.fill();
+            this.visMaterial.map.needsUpdate = true;
         }
     }
 
@@ -92,8 +111,19 @@ class BouncerSim{
             envMap: null
         });
         this.vis = new THREE.Mesh( geometry, material );
-        this.vis.position.y += 2;
+        // this.vis.position.y += 2;
         scene.add( this.vis );
+        this.visMaterial = material;
+    }
+
+    initializePlot(plot) {
+        this.plot = plot;
+        this.plot.width = 256;
+        this.plot.height = 256;
+        this.ctx = plot.getContext('2d');
+        this.plotTexture = new THREE.CanvasTexture(plot);
+        this.visMaterial.map = this.plotTexture;
+        this.drawPhase();
     }
 
 }
