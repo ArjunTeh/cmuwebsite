@@ -33,9 +33,11 @@ class BouncerSim{
     }
 
     resolveCollisions() {
-        if (this.ball.position.y < 0.5) {
+        // so instead, the collision itself could be considered a world reversal
+        // upon collision, everything should be backwards
+        if (this.ball.position.y < 0) {
             this.ball_vel.y = -this.ball_vel.y;
-            this.ball.position.y += 2*(0.5-this.ball.position.y);
+            this.ball.position.y += 2*(-this.ball.position.y);
         }
     }
 
@@ -45,8 +47,9 @@ class BouncerSim{
             this.ctx.fillRect(0, 0, this.plot.width, this.plot.height);
 
             // get the xy coordinates
-            var x = 10*this.position;
+            var x = 20*this.position;
             var y = 10*this.velocity;
+            x = x + this.plot.width/2;
             y = y + this.plot.height/2;
 
             this.ctx.beginPath();
@@ -88,7 +91,7 @@ class BouncerSim{
             envMap: null
         });
         var floor = new THREE.Mesh( geometry, floor_material );
-        // floor.translateY(-3);
+        floor.translateY(-0.5);
         floor.rotateX(THREE.Math.degToRad(-90.0));
         scene.add( floor );
 
@@ -99,10 +102,13 @@ class BouncerSim{
         scene.add( new THREE.AmbientLight( 0x222222 ) );
         scene.add( new THREE.AmbientLight( 0x772266 ) );
         var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-        directionalLight.position.set( 1, 1, 1 ).normalize();
+        directionalLight.position.set( 0.1, 1, 0.1 ).normalize();
         scene.add( directionalLight );
 
-        var geometry = new THREE.ConeGeometry(2, 4, 32);
+        // var geometry = new THREE.CylinderGeometry(0.1, 2, 4, 32, 2);
+        // NOTE: The first indices are the top vertices that are collapsed into one spot
+        // NOTE: The second half of the indices should be considered a radial equation away
+        var geometry = new THREE.ConeGeometry(2, 4, 3);
         var diffuseColor = new THREE.Color().setRGB(0.8, 0.8, 0.2);
         var material = new THREE.MeshStandardMaterial({
 		        color: diffuseColor,
@@ -110,8 +116,9 @@ class BouncerSim{
 		        roughness: 0.7,
             envMap: null
         });
+        console.log(geometry.faces);
+        console.log(geometry.faceVertexUvs);
         this.vis = new THREE.Mesh( geometry, material );
-        // this.vis.position.y += 2;
         scene.add( this.vis );
         this.visMaterial = material;
     }
