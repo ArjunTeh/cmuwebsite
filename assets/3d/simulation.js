@@ -6,6 +6,7 @@ class BouncerSim{
     constructor() {
         this.ball_vel = new THREE.Vector3();
         this.gravity = new THREE.Vector3(0, 9.8, 0);
+        this.flipped = 1;
     }
 
     get position() {
@@ -35,6 +36,7 @@ class BouncerSim{
     resolveCollisions() {
         // so instead, the collision itself could be considered a world reversal
         // upon collision, everything should be backwards
+        this.flipped = (this.ball.position.y < 0) ? -1 : 1;
         if (this.ball.position.y < 0) {
             this.ball_vel.y = -this.ball_vel.y;
             this.ball.position.y += 2*(-this.ball.position.y);
@@ -82,7 +84,7 @@ class BouncerSim{
         scene.add( this.ball );
 
         // create the plane
-        geometry = new THREE.PlaneBufferGeometry(20, 20, 2, 2);
+        geometry = new THREE.PlaneBufferGeometry(100, 100, 2, 2);
         diffuseColor.setRGB(0.3, 0.3, 0.3);
         var floor_material = new THREE.MeshStandardMaterial({
 		        color: diffuseColor,
@@ -105,10 +107,11 @@ class BouncerSim{
         directionalLight.position.set( 0.1, 1, 0.1 ).normalize();
         scene.add( directionalLight );
 
-        // var geometry = new THREE.CylinderGeometry(0.1, 2, 4, 32, 2);
+        var geometry = new THREE.CylinderGeometry(0, 2, 4, 4, 2);
         // NOTE: The first indices are the top vertices that are collapsed into one spot
         // NOTE: The second half of the indices should be considered a radial equation away
-        var geometry = new THREE.ConeGeometry(2, 4, 3);
+        // var geometry = new THREE.ConeGeometry(2, 4, 3);
+        // var geometry = new THREE.PlaneBufferGeometry(3, 3, 10, 10);
         var diffuseColor = new THREE.Color().setRGB(0.8, 0.8, 0.2);
         var material = new THREE.MeshStandardMaterial({
 		        color: diffuseColor,
@@ -116,9 +119,9 @@ class BouncerSim{
 		        roughness: 0.7,
             envMap: null
         });
-        console.log(geometry.faces);
-        console.log(geometry.faceVertexUvs);
+        // THREE.BufferGeometryUtils.mergeVertices(geometry, 1e-2);
         this.vis = new THREE.Mesh( geometry, material );
+        console.log(geometry.faceVertexUvs);
         scene.add( this.vis );
         this.visMaterial = material;
     }
@@ -131,6 +134,18 @@ class BouncerSim{
         this.plotTexture = new THREE.CanvasTexture(plot);
         this.visMaterial.map = this.plotTexture;
         this.drawPhase();
+    }
+
+    setUVs(geo) {
+        geo.faceVertxUVs = [];
+
+        for(var i = 0; i < geo.faces.length; i++) {
+            var v1 = geometry.vertices[faces[i].a],
+                v2 = geometry.vertices[faces[i].b],
+                v3 = geometry.vertices[faces[i].c];
+
+            // either find a closed form function, or just hard code based on the position
+        }
     }
 
 }

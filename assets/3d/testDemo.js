@@ -30,7 +30,7 @@ function init() {
 
     // create scenes
     simScene = new THREE.Scene();
-    simScene.background = new THREE.Color().setRGB(0.5, 0.1, 0.2);
+    simScene.background = new THREE.Color().setRGB(0.5, 0.5, 0.7);
 
     visScene = new THREE.Scene();
     visScene.background = new THREE.Color().setRGB(0.7, 0.7, 0.7);
@@ -54,7 +54,7 @@ function setupRenderer(canvas, scene, renderer) {
     // document.body.appendChild( renderer.domElement );
 
     // var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
-    var camera = new THREE.PerspectiveCamera( 50, 1, 0.1, 1000 );
+    var camera = new THREE.PerspectiveCamera( 50, 1, 0.1, 50 );
     camera.position.z = 8;
     camera.position.y = 3;
     scene.userData.camera = camera;
