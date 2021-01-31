@@ -1,6 +1,6 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic|Source+Code+Pro:400");
-
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 /*
 	Read Only by HTML5 UP
 	html5up.net | @ajlkn
@@ -99,7 +99,8 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #888;
-		font-family: "Lato", sans-serif;
+		/* font-family: "Lato", sans-serif; */
+		font-family: 'Bitter', serif;
 		font-size: 16pt;
 		font-weight: 400;
 		line-height: 1.75em;
@@ -2966,11 +2967,11 @@ input, select, textarea {
 				top: 0;
 				width: 23em;
 				z-index: 10002;
-				-moz-transform: translateX(23em);
-				-webkit-transform: translateX(23em);
-				-ms-transform: translateX(23em);
-				transform: translateX(23em);
-				right: 0;
+				-moz-transform: translateX(-23em);
+				-webkit-transform: translateX(-23em);
+				-ms-transform: translateX(-23em);
+				transform: translateX(-23em);
+				left: 0;
 			}
 
 				#header > footer {
@@ -2978,7 +2979,7 @@ input, select, textarea {
 					left: auto;
 					margin: 0.5em 0 0 0;
 					position: relative;
-					right: auto;
+					left: auto;
 					top: auto;
 				}
 
@@ -3043,7 +3044,7 @@ input, select, textarea {
 					width: 6em;
 					border: 0;
 					outline: 0;
-					right: 0;
+					left: 0;
 				}
 
 					#titleBar .toggle:before {
@@ -3067,14 +3068,14 @@ input, select, textarea {
 						text-align: center;
 						top: 0;
 						width: 64px;
-						right: 0;
+						left: 0;
 					}
 
 			body.header-visible #wrapper, body.header-visible #titleBar {
-				-moz-transform: translateX(-23em);
-				-webkit-transform: translateX(-23em);
-				-ms-transform: translateX(-23em);
-				transform: translateX(-23em);
+				-moz-transform: translateX(23em);
+				-webkit-transform: translateX(23em);
+				-ms-transform: translateX(23em);
+				transform: translateX(23em);
 			}
 
 			body.header-visible #header {
@@ -3162,7 +3163,7 @@ input, select, textarea {
 				-webkit-transform: translateX(17em);
 				-ms-transform: translateX(17em);
 				transform: translateX(17em);
-				right: 0;
+				left: 0;
 			}
 
 				#header > header {
