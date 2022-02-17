@@ -133,7 +133,7 @@
 		// Panel.
 			$header
 				.panel({
-					delay: 500,
+					delay: 200,
 					hideOnClick: true,
 					hideOnSwipe: true,
 					resetScroll: true,
@@ -145,7 +145,7 @@
 
 	// Scrolly.
 		$('.scrolly').scrolly({
-			speed: 1000,
+			speed: 400,
 			offset: function() {
 
 				if (breakpoints.active('<=medium'))
