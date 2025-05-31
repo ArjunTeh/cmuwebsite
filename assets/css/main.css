@@ -1,6 +1,7 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic|Source+Code+Pro:400");
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /*
 	Read Only by HTML5 UP
 	html5up.net | @ajlkn
@@ -100,8 +101,8 @@ input, select, textarea {
 	body, input, select, textarea {
 		color: #888;
 		/* font-family: "Lato", sans-serif; */
-		font-family: 'Bitter', serif;
-		font-size: 16pt;
+		font-family: 'Unna', serif;
+		font-size: 14pt;
 		font-weight: 400;
 		line-height: 1.75em;
 	}
@@ -2655,7 +2656,7 @@ input, select, textarea {
 		.features article .inner {
 			display: inline-block;
 			vertical-align: middle;
-			width: 50%;
+			width: 70%;
 		}
 
 			.features article .inner > :last-child {
@@ -2772,7 +2773,7 @@ input, select, textarea {
 			}
 
 				#header > nav ul li {
-		        background: ;
+		        background: #bf5700;
 					  border-top: solid 2px #bf5700;/*#5ccfb1;*/
 					  display: block;
 					  padding: 0;
@@ -2804,7 +2805,7 @@ input, select, textarea {
 
 	#wrapper {
 		background: #fff;
-		padding-left: 20em;
+		padding-left: 5em;
 	}
 
 /* Main */
@@ -2814,7 +2815,7 @@ input, select, textarea {
 	}
 
 		#main > section > .container {
-			padding: 6em 0 4em 0;
+			padding: 3em 0 3em 0;
 		}
 
 		#main > section:first-child {
