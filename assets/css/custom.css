@@ -1,0 +1,122 @@
+@import url("font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --text-color: #2c2c2c;
+    --box-color: #f4f4f4;
+    --title-color: aliceblue;
+}
+
+body, input, select, textarea {
+	color: var(--text-color);
+	/* font-family: "Lato", sans-serif; */
+	font-family: 'Unna', serif;
+	font-size: 14pt;
+	font-weight: 400;
+	line-height: 1.75em;
+}
+
+a {
+	-moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	-webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	-ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+	border-bottom: solid 0px #e4e4e4;
+	/* color: inherit; */
+	text-decoration: none;
+}
+
+article {
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  object-position: 50% 10%;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.container h2 {
+    text-align: left;
+    margin: 0 0 10px 0;
+    /* padding-left: 1em; */
+    padding: 0.5em 1em;
+    background-color: var(--title-color);
+}
+
+.container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: justify;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+.features article {
+	border-top: solid 1px #f4f4f4;
+	margin-bottom: 2.25em;
+	padding-top: 2.25em;
+    display: grid;
+    grid-template-rows: 150px;
+    grid-template-columns: 1fr 2fr;
+    align-content: top;
+}
+
+	.features article:first-child {
+		border-top: 0;
+		padding-top: 0;
+	}
+
+	.features article .image {
+        grid-column: 1;
+		padding-right: 1.5em;
+		vertical-align: middle;
+        text-decoration: none;
+	}
+
+		.features article .image img {
+			display: block;
+            height: 100%;
+			width: 100%;
+            object-fit: contain;
+            object-position: center;
+		}
+
+	.features article .inner {
+        grid-column: 2;
+		vertical-align: middle;
+        background-color: var(--box-color);
+        padding: 0.5em 1em 1em 1em;
+	}
+
+.features article .inner h4, p {
+    margin-bottom: 0em; /* Add a small bottom margin */
+}
+
+.features .inner .title {
+    font-weight: 600;
+    /* font-size: 16pt; */
+    margin-top: 0em;  /* Add a small top margin */
+    margin-bottom: 0em; /* Add a small bottom margin */
+}
+
+.features .inner .venue {
+    font-style: italic;
+    margin-top: 0em; /* Add a small top margin */
+    margin-bottom: 0em; /* Add a small bottom margin */
+}
+
+.features .inner .authors {
+    margin-top: 0em; /* Add a small top margin */
+    margin-bottom: 0em; /* Add a small bottom margin */
+}
