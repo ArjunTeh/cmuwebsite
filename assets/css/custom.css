@@ -32,8 +32,10 @@ article {
 
 .profile-pic {
   border-radius: 50%;
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
+  max-width: 200px;
+  margin-right: 10px;
   object-fit: cover;
   object-position: 50% 10%;
 }
@@ -60,7 +62,18 @@ article {
     text-align: justify;
     margin-top: 20px;
     padding: 5px;
+    table-layout: auto;
 }
+
+td:first-child {
+    width: 1%;
+}
+
+.container table p {
+    margin: 0;
+    padding: 0;
+}
+
 
 .features article {
 	border-top: solid 1px #f4f4f4;
