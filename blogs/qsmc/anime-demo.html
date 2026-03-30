@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Blog Post with Anime.js</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/blog.css" />
+</head>
+<body>
+    <header>
+        <h1 class="animated-title">My Animated Blog Post</h1>
+    </header>
+    <main>
+        <div class="visual-box" id="visualBox"></div>
+        <div class="content">
+            <p>Welcome to my blog post! Here, I will demonstrate how to use <strong>anime.js</strong> to create engaging animations and visuals for your web content.</p>
+            <button id="animateBtn">Animate Box</button>
+        </div>
+    </main>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+    <script> const { animate } = anime; </script>
+    <script>
+        // Animate the title on page load
+        animate('.animated-title', {
+            translateY: [-50, 0],
+            opacity: [0, 1],
+            duration: 1200,
+            easing: 'easeOutExpo'
+        });
+
+        // Animate the box on button click
+        document.getElementById('animateBtn').addEventListener('click', function() {
+            animate('#visualBox', {
+                scale: [1, 1.2, 1],
+                rotate: '1turn',
+                backgroundColor: [
+                    '#3498db',
+                    '#e67e22',
+                    '#2ecc71',
+                    '#3498db'
+                ],
+                borderRadius: ['16px', '50%', '16px'],
+                duration: 2000,
+                easing: 'easeInOutQuad'
+            });
+        });
+    </script>
+</body>
+</html>
